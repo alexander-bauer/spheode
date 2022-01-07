@@ -39,12 +39,12 @@ resulting HTML documentation to the volume mounted at ``/export``. This might
 be used in a CI context to build static documentation for new versions of the
 source, such as for GitHub or GitLab Pages. ::
 
-   $ docker run -v "$(pwd):/repo:ro" "$(pwd)/export:/export" alexanderbauer0/spheode:latest export
+   $ docker run -v "$(pwd):/repo:ro" -v "$(pwd)/export:/export" alexanderbauer0/spheode:latest export
 
 Additional arguments, such as to ``chown`` the export to another user, may be
 passed just by appending them. ::
 
-   $ docker run -v "$(pwd):/repo:ro" "$(pwd)/export:/export" alexanderbauer0/spheode:latest export --chown 1000:1000
+   $ docker run -v "$(pwd):/repo:ro" -v "$(pwd)/export:/export" alexanderbauer0/spheode:latest export --chown 1000:1000
 
 Debugging
 ^^^^^^^^^
