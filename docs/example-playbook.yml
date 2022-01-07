@@ -1,0 +1,37 @@
+---
+#:
+# ..
+#    In a different context, this could be a section heading instead of a
+#    description list.
+#
+# ``example-playbook.yml``
+#   This text is at the header of an Ansible playbook, the purpose of which is to
+#   ping all defined hosts twice, and to be an example. Although this is just a
+#   paragaraph, reStructuredText here could include other files, or a mermaid-js
+#   diagram.
+#
+#   The playbook performs exactly these tasks.
+#.
+- name: Ping all hosts
+  hosts: all
+  tasks:
+    #:
+    #   ..
+    #      Inline Sphinx comment inside a Python comment here -- although it
+    #      looks strange, ``#.`` is also the marker for an auto-numbered Sphinx
+    #      bullet list. It works great for numbering tasks.
+    #
+    #      We have to pay very close attention to the number of spaces when using
+    #      code blocks, and the sphinxcontrib-cmtinc directives like
+    #      ``codepara``.
+    #
+    #   #. Ping all the hosts in parallel. For posterity, we also include the implementation of the task. ::
+    #.      \codepara
+    - name: Ping once, to check
+      ping: {}
+
+    #:
+    #   #. Ping all the hosts in parallel again. We're not including the implementation on this one.
+    #.
+    - name: Ping again, just to be sure
+      ping: {}
