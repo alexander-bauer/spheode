@@ -2,13 +2,13 @@
 
 INSTALL_ROOT=$(realpath $(dirname $(realpath $0))/..)
 
-REPO=/repo # we export this for dependent scripts
-EXPORT=/export
 
 AUTOBUILD_CMD=autobuild
 EXPORT_CMD=export
 
+REPO=/repo # we export this for dependent scripts
 DOCS=docs
+EXPORT=/export
 DETECT=
 PORT=8000
 CHOWN=
@@ -23,7 +23,9 @@ usage() {
    echo "  $EXPORT_CMD          build documentation once and save as an artifact" 1>&2
    echo "" 1>&2
    echo "options:" 1>&2
+   echo "  --repo <dir>           repository root (default '${REPO}')" 1>&2
    echo "  --docs <dir>           docs directory relative to the repo root (default '${DOCS}')" 1>&2
+   echo "  --export <dir>         directory into which to export built documentation (default '${EXPORT}')" 1>&2
    echo "  --detect               force VCS version detection even in --watch mode" 1>&2
    echo "  --port <port>          port to bind for --serve, default ${PORT}" 1>&2
    echo "  --chown <UID:GID>      ownership to set for export" 1>&2
@@ -31,7 +33,7 @@ usage() {
 }
 
 # Normalize the arguments with getopt.
-ARGS=$(getopt -n spheode --long docs:,detect,port:,chown:,baseconf: -- "$0" "$@")
+ARGS=$(getopt -n spheode --long repo:,docs:,export:,detect,port:,chown:,baseconf: -- "$0" "$@")
 if [[ $? != 0 ]]; then usage; exit 1; fi
 
 # Replace the args with the normalized version.
@@ -39,7 +41,9 @@ eval set -- "$ARGS"
 
 while true; do
     case "${1:-}" in
+       --repo ) REPO="$2"; shift 2 ;;
        --docs ) DOCS="$2"; shift 2 ;;
+       --export ) EXPORT="$2"; shift 2 ;;
        --detect ) DETECT=true; shift ;;
        --port ) PORT="$2"; shift 2 ;;
        --chown ) CHOWN="$2"; shift 2 ;;
